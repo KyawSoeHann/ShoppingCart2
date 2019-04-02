@@ -1,0 +1,55 @@
+﻿
+@{
+    string name = (string)ViewData["topleft"];
+    string firstLinkName = (string)ViewData["FirstLinkName"];
+    string firstActionName = (string)ViewData["FirstActionName"];
+    string firstControllerName = (string)ViewData["FirstControllerName"];
+    string secondLinkName = (string)ViewData["SecondLinkName"];
+    string secondActionName = (string)ViewData["SecondActionName"];
+    string secondControllerName = (string)ViewData["SecondControllerName"];
+ }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Shopping Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    @name
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">@name</a></li>
+                    <li>@Html.ActionLink(firstLinkName, firstActionName, firstControllerName)</li>
+                    <li>@Html.ActionLink(secondLinkName, secondActionName, secondControllerName)</li>
+                </ul>
+                <p class="navbar-form navbar-right"><a href="#" class="btn"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size : 20px"></i><span class="badge"></span></a></p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Shopping Cart Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

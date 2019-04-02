@@ -1,0 +1,14 @@
+﻿@using ShoppingCart2.Models
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    foreach (var cl in (List<CartList>)ViewData["CartList"])
+    {
+        @cl.name
+        
+        @cl.count
+        <br />
+    }
+}
