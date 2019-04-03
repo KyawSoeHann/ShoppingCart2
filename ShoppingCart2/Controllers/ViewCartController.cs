@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Diagnostics;
 using ShoppingCart2.Models;
 using ShoppingCart2.DAO;
+using ShoppingCart2.Utility;
 
 namespace ShoppingCart2.Controllers
 {
@@ -16,22 +17,42 @@ namespace ShoppingCart2.Controllers
         {
             ViewData["topleft"] = "View Cart";
             ViewData["FirstLinkName"] = "Continue Shopping";
-            ViewData["FirstActionName"] = "#";
-            ViewData["FirstControllerName"] = "#";
+            ViewData["FirstActionName"] = "Index";
+            ViewData["FirstControllerName"] = "Home";
             ViewData["SecondLinkName"] = "Checkout";
-            ViewData["SecondActionName"] = "#";
-            ViewData["SecondControllerName"] = "#";
-            
+            ViewData["SecondActionName"] = "Checkout";
+            ViewData["SecondControllerName"] = "Purchase";
+            ViewData["Price"] = "1";
+            ViewData["Cart"] = "0";
+
+            //collect product id and no of product from cookie
             HttpCookieCollection cookies = Request.Cookies;
             string[] arr = cookies.AllKeys;
-            Dictionary<string, string> kV = new Dictionary<string,string>();
-            foreach(var i in arr)
+            //pick data only when there are at least 1 item in the cart
+            Debug.WriteLine(arr.Length);
+            if (arr.Length > 0)
             {
-                kV.Add(i, Request.Cookies[i].Value);
-            }
+                Dictionary<string, string> kV = new Dictionary<string, string>();
+                //make product id and no of item key value pair
+                foreach (var i in arr)
+                {
+                    kV.Add(i, Request.Cookies[i].Value);
+                }
 
-            List<CartList> cl = ProductDao.getProductsByIds(arr, kV);
-            ViewData["CartList"] = cl;
+                List<CartList> cl = ProductDao.getProductsByIds(arr, kV);
+                //calculate total to populate it in view
+                int total = ProductUtility.Total(cl);
+
+                ViewData["CartList"] = cl;
+                ViewData["Total"] = total;
+            }else
+            {
+                ViewData["Total"] = 0;
+            }
+            
+
+            //testing
+
             return View();
         }
     }

@@ -6,7 +6,7 @@
 
 <div class="input-group" style="margin-top : 20px">
     <span class="input-group-addon fa fa-search" id="sizing-addon2"></span>
-    <input type="text" class="form-control" placeholder="Enter your search here..." aria-describedby="sizing-addon2" onkeypress="searchField(this)">
+    <input type="text" class="form-control" placeholder="Enter your search here..." aria-describedby="sizing-addon2" oninput="searchField(this)">
 </div>
     
 <div class="row" style="margin-top : 20px;" id="productTable">
@@ -90,37 +90,34 @@
     }
 
     function searchField(e) {
-        console.log(e.value)
-        if (e.value) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                var products = "";
-                if (this.readyState == 4 && this.status == 200) {
-                   var results = JSON.parse(this.responseText)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            var products = "";
+            if (this.readyState == 4 && this.status == 200) {
+                var results = JSON.parse(this.responseText)
                     
-                    for (var i = 0; i < results.length; i++) {
-                        products += `
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/Image/Index?imagename=${results[i]['imageName']}" alt="...">
-                                    <div class="caption">
-                                        <h3>${results[i]['name']}</h3>
-                                        <p>${results[i]['description']}</p>
-                                        <p><button class="btn btn-primary" name="${results[i]['id']}" onclick="addToCart(this)">${results[i]['price']} - ADD TO CART</button></p>
-                                    </div>
+                for (var i = 0; i < results.length; i++) {
+                    products += `
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="/Image/Index?imagename=${results[i]['imageName']}" alt="...">
+                                <div class="caption">
+                                    <h3>${results[i]['name']}</h3>
+                                    <p>${results[i]['description']}</p>
+                                    <p><button class="btn btn-primary" name="${results[i]['id']}" onclick="addToCart(this)">${results[i]['price']} - ADD TO CART</button></p>
                                 </div>
-                            </div>`
+                            </div>
+                        </div>`
 
 
-                    }
-
-                    table.innerHTML = products;
-                    console.log(products)
                 }
-            };
-            xhttp.open("GET", "/product/index?name=" + e.value, true);
+
+                table.innerHTML = products;
+            }
+        };
+        xhttp.open("GET", "/product/index?name=" + e.value, true);
             xhttp.send();
-        }
+        
 
     }
 </script>

@@ -3,12 +3,76 @@
     ViewBag.Title = "Home Page";
 }
 
+
+
+
 @{
-    foreach (var cl in (List<CartList>)ViewData["CartList"])
+    if (ViewData["CartList"] != null)
     {
-        @cl.name
-        
-        @cl.count
-        <br />
+        foreach (var p in (List<CartList>)ViewData["CartList"])
+        {
+            <div class="row" style="margin-top : 20px;" id="row @p.id">
+                <div class="col-sm-6 col-md-4 col-md-offset-2 vcenter">
+                    <div class="thumbnail">
+                        <img src="/Image/Index?imagename=@p.imageName" alt="...">
+                        <div class="caption">
+                            <h3>@p.name</h3>
+                            <p>@p.description</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 vcenter">
+                    <table>
+                        <tr>
+                            <td> Price :</td>
+                            <td>$ @p.price</td>
+                        </tr>
+                        <tr>
+                            <td> Quantity :</td>
+                            <td><input class="prices" id="@p.id" type="number" name="@p.price" value="@p.count" oninput="quantityChange(this)" min="0" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
     }
+    else
+    {
+        <p style="margin-top : 20px">Currently, there is no item in the cart.</p>
+    }
+
 }
+
+<script>
+    var totalElement = document.getElementById("total")
+
+    function quantityChange(e) {
+        var id = e.id;
+        setCookie(id, e.value);
+        if (e.value == "0") {
+            document.getElementById(`row ${id}`).remove();
+
+        }
+        var totalPrice = 0;
+        var inputs = document.getElementsByClassName("prices")
+        for (var i = 0; i < inputs.length; i++) {
+            var input = document.getElementById(inputs[i].id)
+            var price = input.name;
+            var noOfItems = input.value
+            totalPrice += Number(price) * Number(noOfItems)
+        }
+
+        totalElement.innerHTML = `Total : $ ${totalPrice}`
+    }
+
+    function setCookie(name, number) {
+        if (number == "0") {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        } else {
+            document.cookie = `${name} = ${number}`;
+
+        }
+
+    }
+</script>
