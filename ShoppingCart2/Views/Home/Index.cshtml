@@ -64,8 +64,13 @@
         var cookies = document.cookie.split(";")
         var count = 0;
         for (var i = 0; i < cookies.length; i++) {
+            console.log(cookies[i])
             var c = cookies[i].split("=");
-            count += Number(c[1]);
+            var key = c[0].trim();
+            if (key != "userId" && key != "name") {
+                count += Number(c[1]);
+
+            }
         }
         return count;
     }
@@ -85,7 +90,7 @@
     }
 
     function setCookie(name, number) {
-        document.cookie = `${name} = ${number}`;
+        document.cookie = `${name} = ${number};path=/`;
 
     }
 

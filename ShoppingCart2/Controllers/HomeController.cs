@@ -17,12 +17,14 @@ namespace ShoppingCart2.Controllers
             ViewData["FirstActionName"] = "Index";
             ViewData["FirstControllerName"] = "Purchase";
             ViewData["SecondLinkName"] = "Logout";
-            ViewData["SecondActionName"] = "#";
-            ViewData["SecondControllerName"] = "#";
+            ViewData["SecondActionName"] = "Logout";
+            ViewData["SecondControllerName"] = "Auth";
             ViewData["Price"] = "0";
             ViewData["Cart"] = "1";
             List<Product> products = ProductDao.getAllProducts();
-            ViewData["products"] = products;
+
+            ViewData["products"] = products;            
+
             return View();
         }
 

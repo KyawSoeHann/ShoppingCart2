@@ -126,6 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -134,13 +135,17 @@
     <Compile Include="DAO\Database.cs" />
     <Compile Include="DAO\ProductDao.cs" />
     <Compile Include="DAO\PurchaseDao.cs" />
+    <Compile Include="DAO\UserDao.cs" />
+    <Compile Include="Filters\AuthFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartList.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\PurchaseItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\CookieUtility.cs" />
     <Compile Include="Utility\ProductUtility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +201,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ViewCart\Index.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\Auth\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

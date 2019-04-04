@@ -25,21 +25,12 @@ namespace ShoppingCart2.Controllers
             ViewData["Price"] = "1";
             ViewData["Cart"] = "0";
 
-            //collect product id and no of product from cookie
-            HttpCookieCollection cookies = Request.Cookies;
-            string[] arr = cookies.AllKeys;
-            //pick data only when there are at least 1 item in the cart
-            Debug.WriteLine(arr.Length);
-            if (arr.Length > 0)
+            Dictionary<string, string> kV = Utility.CookieUtility.getProductKeyValues(Request.Cookies);
+            //make product id and no of item key value pair
+            Debug.WriteLine(kV.Count);
+            if (kV.Count > 0)
             {
-                Dictionary<string, string> kV = new Dictionary<string, string>();
-                //make product id and no of item key value pair
-                foreach (var i in arr)
-                {
-                    kV.Add(i, Request.Cookies[i].Value);
-                }
-
-                List<CartList> cl = ProductDao.getProductsByIds(arr, kV);
+                List<CartList> cl = ProductDao.getProductsByIds(kV);
                 //calculate total to populate it in view
                 int total = ProductUtility.Total(cl);
 
@@ -49,9 +40,6 @@ namespace ShoppingCart2.Controllers
             {
                 ViewData["Total"] = 0;
             }
-            
-
-            //testing
 
             return View();
         }

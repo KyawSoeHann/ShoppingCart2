@@ -1,0 +1,80 @@
+﻿@model ShoppingCart2.Models.Login
+
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Shopping Cart</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" >
+            @using (@Html.BeginForm("Login", "Auth", FormMethod.Post))
+            {
+                <table style="margin : 0 auto;">
+                    <tr>
+                        <th colspan="2">
+                            <h2>Login Form</h2>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(x => x.username) &nbsp;
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => x.username,null,new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(x => x.username, null, new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(x => x.password) &nbsp;
+                        </td>
+                        <td>
+                            @Html.PasswordFor(x => x.password, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.ValidationMessageFor(x => x.password, null, new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right">
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </td>
+                    </tr>
+                    @{ 
+
+                        if (ViewData["error"] != null)
+                        {
+                            <tr>
+                                <td colspan="2" class="text-danger">
+                                    @ViewData["error"]
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            }
+        </div>
+        
+
+    </div>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+
+

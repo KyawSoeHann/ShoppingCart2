@@ -70,43 +70,27 @@ namespace ShoppingCart2.DAO
             return products;
         }
 
-        public static List<CartList> getProductsByIds(string[] ids,Dictionary<string,string> kV)
+        public static List<CartList> getProductsByIds(Dictionary<string,string> kV)
         {
             List<CartList> cl = new List<CartList>();
-            string parameter = String.Join(",", ids);
-
             using (SqlConnection conn = new SqlConnection(Database.conName))
             {
-                string query = @"SELECT * FROM Product WHERE id in (";
-                string inClause = "";
-
-                for (var i = 0; i < ids.Length; i++)
-                {
-                    if (i < ids.Length - 1)
-                    {
-                        inClause += "@" + ids[i] + ",";
-                    }else
-                    {
-                        inClause += "@" + ids[i];
-                    }
-                    
-                }
-
-                query += inClause + ")";
-                
+                var keyArrays = kV.Keys.ToArray();
+                var inString = String.Join(",@", keyArrays);
+                string query = @"SELECT * FROM Product WHERE id in (@" + inString + ")";
                 SqlCommand cmd = new SqlCommand(query, conn);
 
-                for (var i = 0; i < ids.Length; i++)
+                foreach (KeyValuePair<string,string> k in kV)
                 {
-                    cmd.Parameters.AddWithValue("@"+ids[i], ids[i]);
+                    cmd.Parameters.AddWithValue("@" + k.Key,k.Key);
                 }
-                
 
                 conn.Open();
                 SqlDataReader sdr = cmd.ExecuteReader();
                 while (sdr.Read())
                 {
                     var pId = kV[System.Convert.ToString(sdr["id"])];
+
                     CartList p = new CartList()
                     {
                         id = (int)sdr["id"],

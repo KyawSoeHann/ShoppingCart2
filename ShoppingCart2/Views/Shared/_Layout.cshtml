@@ -1,6 +1,6 @@
 ﻿
 @{
-    string name = (string)ViewData["topleft"];
+    //string name = "Hello ,"+(string)Request.Cookies["name"].Value;
     string firstLinkName = (string)ViewData["FirstLinkName"];
     string firstActionName = (string)ViewData["FirstActionName"];
     string firstControllerName = (string)ViewData["FirstControllerName"];
@@ -39,7 +39,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">@name</a></li>
+                    <li><a href="#"></a></li>
                     <li>@Html.ActionLink(firstLinkName, firstActionName, firstControllerName)</li>
                     <li>@Html.ActionLink(secondLinkName, secondActionName, secondControllerName)</li>
                 </ul>
