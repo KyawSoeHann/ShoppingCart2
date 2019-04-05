@@ -1,6 +1,10 @@
 ﻿
 @{
-    //string name = "Hello ,"+(string)Request.Cookies["name"].Value;
+    string name = "";
+    if (Request.Cookies["name"] != null)
+    {
+        name = "Hello ," + (string)Request.Cookies["name"].Value;
+    }
     string firstLinkName = (string)ViewData["FirstLinkName"];
     string firstActionName = (string)ViewData["FirstActionName"];
     string firstControllerName = (string)ViewData["FirstControllerName"];
@@ -33,15 +37,52 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
 
                 </button>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"></a></li>
-                    <li>@Html.ActionLink(firstLinkName, firstActionName, firstControllerName)</li>
-                    <li>@Html.ActionLink(secondLinkName, secondActionName, secondControllerName)</li>
+                    <li><a href="#">@name</a></li>
+                    <li>
+                        @{
+                            if (ViewData["Home"] != null)
+                            {
+                                @Html.ActionLink("My Purchase", "Index", "Purchase")
+                            }
+                        }
+                    </li>
+                        @{
+                            if (ViewData["ContinueShopping"] != null)
+                            {
+                                <li>
+                                @Html.ActionLink("Continue Shopping", "Index", "Home")
+                                    </li>
+                            }
+                        if (ViewData["ViewCart"] != null)
+                        {
+                                <li>
+                        @Html.ActionLink("Checkout", "Checkout", "Purchase")
+                                    </li>
+                        }
+
+                        }
+                        
+                    <li>
+                        @{
+                            if (name == "")
+                            {
+                                @Html.ActionLink("Login", "Index", "Auth")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Logout", "Logout", "Auth")
+
+                            }
+                        }
+                    </li>
+
+
+
                 </ul>
                 <p class="navbar-form navbar-right">
 

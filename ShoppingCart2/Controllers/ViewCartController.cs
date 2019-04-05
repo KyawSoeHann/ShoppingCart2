@@ -15,19 +15,13 @@ namespace ShoppingCart2.Controllers
         // GET: ViewCart
         public ActionResult Index()
         {
-            ViewData["topleft"] = "View Cart";
-            ViewData["FirstLinkName"] = "Continue Shopping";
-            ViewData["FirstActionName"] = "Index";
-            ViewData["FirstControllerName"] = "Home";
-            ViewData["SecondLinkName"] = "Checkout";
-            ViewData["SecondActionName"] = "Checkout";
-            ViewData["SecondControllerName"] = "Purchase";
+            ViewData["ViewCart"] = "1";
             ViewData["Price"] = "1";
             ViewData["Cart"] = "0";
+            ViewData["ContinueShopping"] = "0";
 
             Dictionary<string, string> kV = Utility.CookieUtility.getProductKeyValues(Request.Cookies);
             //make product id and no of item key value pair
-            Debug.WriteLine(kV.Count);
             if (kV.Count > 0)
             {
                 List<CartList> cl = ProductDao.getProductsByIds(kV);

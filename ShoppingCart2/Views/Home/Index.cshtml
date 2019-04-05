@@ -16,10 +16,10 @@
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img src="/Image/Index?imagename=@p.imageName" alt="...">
-                    <div class="caption">
+                    <div class="caption" style="min-height : 180px">
                         <h3>@p.name</h3>
                         <p>@p.description</p>
-                        <p><button class="btn btn-primary" name="@p.id" onclick="addToCart(this)">@p.price - ADD TO CART</button></p>
+                        <p><button class="btn btn-primary" name="@p.id" onclick="addToCart(this)">$ @p.price - ADD TO CART</button></p>
                     </div>
                 </div>
             </div>
@@ -61,11 +61,13 @@
     }
 
     function productCount() {
+        console.log(document.cookie)
         var cookies = document.cookie.split(";")
+        console.log(cookies);
         var count = 0;
         for (var i = 0; i < cookies.length; i++) {
-            console.log(cookies[i])
             var c = cookies[i].split("=");
+            console.log(c)
             var key = c[0].trim();
             if (key != "userId" && key != "name") {
                 count += Number(c[1]);
@@ -106,7 +108,7 @@
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail">
                                 <img src="/Image/Index?imagename=${results[i]['imageName']}" alt="...">
-                                <div class="caption">
+                                <div class="caption"  style="min-height : 180px">
                                     <h3>${results[i]['name']}</h3>
                                     <p>${results[i]['description']}</p>
                                     <p><button class="btn btn-primary" name="${results[i]['id']}" onclick="addToCart(this)">${results[i]['price']} - ADD TO CART</button></p>

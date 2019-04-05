@@ -78,6 +78,7 @@ namespace ShoppingCart2.DAO
                 var keyArrays = kV.Keys.ToArray();
                 var inString = String.Join(",@", keyArrays);
                 string query = @"SELECT * FROM Product WHERE id in (@" + inString + ")";
+                Debug.WriteLine(query);
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 foreach (KeyValuePair<string,string> k in kV)
